@@ -1,0 +1,20 @@
+https://www.youtube.com/watch?v=O4BU14qbTag&t=87s
+sudo apt update
+sudo apt install -y mysql-client mysql-server apache2 php php-mysql php-mbstring php-xml  php-curl php-zip php-gd php-intl php-soap
+wget https://download.moodle.org/download.php/direct/stable404/moodle-4.4.tgz
+mv moodle-latest-402.tgz /var/www/html/
+cd /var/www/html
+tar -xf moodle-latest-402.tgz
+cd ..
+mkdir moodledata
+ls -l
+chown www-data moodledata
+mysql
+CREATE DATABASE moodle DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+CREATE USER 'moodleuser'@'localhost' IDENTIFIED BY 'yourpassword';
+GRANT SELECT,INSERT,UPDATE,DELETE,CREATE,CREATE TEMPORARY TABLES,DROP,INDEX,ALTER ON moodle.* TO 'moodleuser'@'localhost';
+FLUSH PRIVILEGES;
+cd /html/moodle/
+nano config.php
+systemctl restart apache2.service
+nano /etc/php/8.1/apache2/php.ini
